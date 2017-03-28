@@ -65,7 +65,6 @@ public class kougeki : MonoBehaviour {
     //ダメージ２倍か半減か通常かの判別
     //０が通常　１が２倍　２が半減
     private int[] dame = new int[5];
-
     //回復のテキスト
     public GameObject kaihukutob;
     private Text kaiT;
@@ -80,8 +79,7 @@ public class kougeki : MonoBehaviour {
         myhp = 5000f;
         maxhp = myhp;
         //ここも多様化
-        //ダンジョンはいるときに受け取る
-   
+        //ダンジョンはいるときに受け取る  
         kaihukuti = 50;
 
         kainul = false;
@@ -104,10 +102,8 @@ public class kougeki : MonoBehaviour {
     
         switch (Gl.tarn)
         {
-            case 1:
-               
-                
-                    for(int i = 0; i < 5; i++)
+            case 1:                              
+                    for(int i = 0; i < kougekiryoku.Length-1; i++)
                     {
                     if (otosw == false)
                     {
@@ -118,15 +114,9 @@ public class kougeki : MonoBehaviour {
                             otosw = true;
                         }
                     }
-                    }
-              
-                
+                    }                              
                 //攻撃を発動
-                hatudou();
-              
-                //攻撃を発動し終わったら敵のターン
-            
-            
+                hatudou();                                                      
                 break;
             case 6:
               //コンティニュー
@@ -137,17 +127,16 @@ public class kougeki : MonoBehaviour {
             }
                 break;
                 //ゲージの滑らかな増減
-            case 10:
-             
-                    //何ループ目か
+            case 10:             
+                   //何ループ目か
                     if (kaitime[0] <= kaitime[1])
                     {
                  
-                    if (parsen[5] > 0)
+                    if (parsen[parsen.Length-1] > 0)
                     {
                
                         //回復について
-                        if (myhp + (int)parsen[5] < maxhp)
+                        if (myhp + (int)parsen[parsen.Length-1] < maxhp)
                         {
                             //回復がなければ増えないハズ
                             myhp += (int)parsen[5];
@@ -158,7 +147,7 @@ public class kougeki : MonoBehaviour {
                         }
                     }
                     //攻撃について
-                    for(int i = 0; i < 5; i++)
+                    for(int i = 0; i < kougekiryoku.Length-1; i++)
                     {
                         if (En.tekihp - (int)parsen[i] > 0)
                         {
@@ -174,26 +163,19 @@ public class kougeki : MonoBehaviour {
                     }
                     else
                     {
-
                         root10();
-
-                    }
-              
-         
+                    }                       
                 break;
-        }
-      
-     
-  
+        }        
 	}
     //ルート１０のsyokika処理
     void root10()
     {
-        if (parsen[5] > 0)
+        if (parsen[parsen.Length-1] > 0)
         {
             
                 int now = (int)(kaitime[1]-kaitime[0]);
-                myhp += parsen[5] * now;
+                myhp += parsen[parsen.Length-1] * now;
             //回復の音と回復値のテキスト表示
                 kaiT.text = "";
                 kaianim.SetBool("sw", false);
@@ -226,8 +208,7 @@ public class kougeki : MonoBehaviour {
         for(int j = 0; j < parsen.Length; j++)
         {
             parsen[j] = 0;
-        }
-    
+        }   
         kaiti = 0;
         kaitime[0] = 0;
         kainul = false;
@@ -235,15 +216,8 @@ public class kougeki : MonoBehaviour {
     //受け取ったオブジェクトのタグを調べて攻撃に加算
     public void tagcheckkou(GameObject tago)
     {
-       
-        dropti = new int[5];
         //ドロップ一個当たりの攻撃力
-        dropti[0] = 100;
-        dropti[1] = 100;
-        dropti[2] = 100;
-        dropti[3] = 100;
-        dropti[4] = 100;
-  
+        dropti = new int[5] { 100,100,100,100,100};         
             switch (tago.tag)
             {
                 //闇
@@ -353,11 +327,7 @@ public class kougeki : MonoBehaviour {
                     }
 
                     break;
-            }
-        
-    
-    
-
+            }                
     }
     //蓄えた攻撃を実際に実行
     void hatudou()
@@ -365,7 +335,6 @@ public class kougeki : MonoBehaviour {
         nowTime += Time.deltaTime;
         if (nowTime > endTime)
         {
-
             if (kougekiryoku[suu] > 0&&suu<kougekiryoku.Length)
             {
                 switch (suu)
@@ -398,26 +367,22 @@ public class kougeki : MonoBehaviour {
                         //敵の音声かゲージがゆれるか
                         eneani.SetBool("sw", true);
                         eneani2.SetBool("enesw", true);
-                        //敵のｈｐが減る
-                        
+                        //敵のｈｐが減る                        
                         kou[suu] = kougekiryoku[suu];
-                        parsen[suu] = kou[suu] / kaitime[1];
-                            //En.tekihp = En.tekihp - kougekiryoku[suu];
+                        parsen[suu] = kou[suu] / kaitime[1];                          
                         kainul = true;
-                //攻撃の音
-                              oto.SEkou(suu);
+                       //攻撃の音
+                        oto.SEkou(suu);
                         //ダメージテキストの生成
-                              GameObject[] g=new GameObject[2];
-                              Text gt;
-                             
-                              Animator ee;
-
+                        GameObject[] g=new GameObject[2];
+                        Text gt;                             
+                        Animator ee;
                         //生成
-                              Vector2 s = seip.transform.position;
-                              g[0] = (GameObject)Instantiate(dametec, s, dametec.transform.rotation);
-                              g[1] = g[0].transform.FindChild("coT").gameObject;
-                              gt = g[1].GetComponent<Text>();
-                              ee = g[1].GetComponent<Animator>();
+                         Vector2 s = seip.transform.position;
+                         g[0] = (GameObject)Instantiate(dametec, s, dametec.transform.rotation);
+                         g[1] = g[0].transform.FindChild("coT").gameObject;
+                         gt = g[1].GetComponent<Text>();
+                         ee = g[1].GetComponent<Animator>();
                         //弱点か半減かによってダメージテキストの大きさを変える
                               switch (dame[suu])
                               {
@@ -429,15 +394,10 @@ public class kougeki : MonoBehaviour {
                                   case 2:
                                       ee.SetBool("sw1", true);
                                       break;
-                              }
-                              
-                 
-                     
-                            
-                   
-                              gt.text = kougekiryoku[suu] + "";
+                              }                                                                                                                  
+                        gt.text = kougekiryoku[suu] + "";
                         //属性によってテキストのカラー変換
-                              gt.color = tekich(suu);
+                        gt.color = tekich(suu);
                         //テキストに攻撃力を代入
                 //パーティクル生成
                 Instantiate(partic[suu], patisepos.transform.position, partic[suu].transform.rotation);
@@ -479,10 +439,7 @@ public class kougeki : MonoBehaviour {
                 suu = 0;
             }
             nowTime = 0;
-        }
-      
-
-       
+        }             
     }
 
     //テキストのカラー変換

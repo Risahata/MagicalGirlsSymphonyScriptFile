@@ -39,12 +39,7 @@ public class audioSys : MonoBehaviour {
                 tekio[i] = tekiv[i].GetComponent<AudioSource>();
             }
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	}	
     //SE音１
     public void SEo0()
     {
@@ -153,5 +148,4 @@ public class audioSys : MonoBehaviour {
             tekio[v].PlayOneShot(tekio[v].clip);
         }
     }
-
 }

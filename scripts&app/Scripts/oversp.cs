@@ -29,10 +29,6 @@ public class oversp : MonoBehaviour {
     public GameObject fadg;
 
     private bool otosw;
-    //bgmの音を消すスイッチ
-    private bool bgkesu;
-    private float bgtime0;
-    private float bgtime1;
     //bgmのオーディオソース
     public AudioSource bgm;
 	// Use this for initialization
@@ -50,24 +46,21 @@ public class oversp : MonoBehaviour {
         Cc.a = touka;
         fadg.SetActive(false);
         otosw = false;
-        bgkesu = false;
+      
 	}
 	
 	// Update is called once per frame
 	void Update () {
         switch (Gl.tarn)
-        {
-   
-            //ゲームオーバー
+        {  
+           //ゲームオーバー
             case 4:
                 Debug.Log("表示された");
                 //音一回だけ鳴らす
                 if (otosw == false) {
                     aud.SEo4();
                     bgm.Pause();
-                    aud.SEo5();
-                    //bgmの音をけす
-                    bgkesu = true;
+                    aud.SEo5();                  
                     otosw = true;
                 }
                             overcT.text = @"
@@ -77,7 +70,7 @@ public class oversp : MonoBehaviour {
 コンティニューしますか？
 ";
                         
-            overC.SetActive(true);
+           　　 overC.SetActive(true);
                 break;
             //あきらめるとき
             case 5:
@@ -93,9 +86,6 @@ public class oversp : MonoBehaviour {
                 overC.SetActive(false);
                 break;
         }
-
-
-
         //フェード
         if (fdsw == true)
         {
@@ -109,16 +99,10 @@ public class oversp : MonoBehaviour {
             {
                 SceneManager.LoadScene("menu");
             }
-        }
-        //bgmの音を消すスイッチがおん
-        if (bgkesu == true)
-        {
-            //bgmの音を消す処理
-        }
+        }     
       
 	}
     //ボタン
-
     //はい
     public void hai()
     {
@@ -137,13 +121,11 @@ public class oversp : MonoBehaviour {
                 aud.SEo5();
                 ScnGlob.tomain = true;
                 //あきらめる
-                    fadg.SetActive(true);
-        //画面がフェード
-        fdsw = true;
+                fadg.SetActive(true);
+        　　　　//画面がフェード
+        　　　　fdsw = true;
                 break;
-        }
-  
-     
+        }       
     }
     //いいえ
     public void iie()
@@ -153,9 +135,9 @@ public class oversp : MonoBehaviour {
         {
             case 4:
                 ScnGlob.tomain = true;
-                               fadg.SetActive(true);
-        //画面がフェード
-        fdsw = true;
+                fadg.SetActive(true);
+        　　　　　//画面がフェード
+        　　　　　fdsw = true;
                 break;
             case 5:
                 //元のターンへ

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class skill : MonoBehaviour {
     public GameObject[] patiobj = new GameObject[6];
     private SpriteRenderer[] patisp=new SpriteRenderer[6];
-
     //スキルターン
     private int[] skilltarn = new int[6]{
     2,5,1,3,7,4
@@ -33,8 +32,7 @@ public class skill : MonoBehaviour {
         for (int i = 0; i < nowskill.Length; i++)
         {
             nowskill[i] = 0;
-            patisp[i] = patiobj[i].GetComponent<SpriteRenderer>();
-       
+            patisp[i] = patiobj[i].GetComponent<SpriteRenderer>();       
         }
         sknameo = skillC.transform.FindChild("tnT").gameObject;
         skT = sknameo.GetComponent<Text>();
@@ -50,7 +48,6 @@ public class skill : MonoBehaviour {
         {
             if (nowskill[i] >= skilltarn[i])
             {
-
                 //spriteが輝く
                 patisp[i].color = new Color(1, 1, 1);
             }
@@ -63,12 +60,9 @@ public class skill : MonoBehaviour {
         if (Gl.tarn == 0&&id.botanstate==0)
         {
             click();
-        }
-   
-          
+        }           
         //canvas
             skillC.SetActive(cansw);
-
 	}
     void click()
     {
@@ -131,12 +125,9 @@ public class skill : MonoBehaviour {
                             suu = 5;
                             skillhan(suu);
                             break;
-                        default:
-                            //cansw = false;
+                        default:                           
                             break;
-
-                    }
-                 
+                    }                
                 }
             }
 

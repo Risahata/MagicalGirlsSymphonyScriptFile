@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class particleoudes : MonoBehaviour {
-    //自動的に消える
+    //自動的に消えるパーティクル
     private float nowTime;
     private float endTime;
 	// Use this for initialization
@@ -11,7 +11,6 @@ public class particleoudes : MonoBehaviour {
         nowTime = 0;
         endTime = 1;
 	}
-	
 	// Update is called once per frame
 	void Update () {
         nowTime += Time.deltaTime;

@@ -52,14 +52,14 @@ public class seisei : MonoBehaviour {
         //最初のランダム配置
         //スポーン
         //たて
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < haiti.GetLength(0); i++)
         {
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < haiti.GetLength(1); j++)
             {
                 //オブジェクトを見つける
                 haiti[i, j] = GameObject.Find(obname[i,j]);
                 //haitiの下に産む
-                dransu = Random.Range(0, 6);           
+                dransu = Random.Range(0, sp.Length);           
                 kara = (GameObject)Instantiate(sp[dransu], haiti[i, j].transform.position, haiti[i, j].transform.rotation);
                 kara.name = "drop" + suu;
                 kara.transform.parent = haiti[i, j].transform;
@@ -73,8 +73,7 @@ public class seisei : MonoBehaviour {
         }
         combosw = false;
         seihan = false;
-	}
-	
+	}	
 	// Update is called once per frame
 	void Update () {
         //upした後
@@ -82,8 +81,7 @@ public class seisei : MonoBehaviour {
         {
             //何度も
             downdrop();
-        }
-    
+        }    
         if (combosw == true)
         {
             nowTime += Time.deltaTime;
@@ -112,9 +110,9 @@ public class seisei : MonoBehaviour {
     //下にダウン
     public void downdrop()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < haiti.GetLength(0); i++)
         {
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < haiti.GetLength(1); j++)
             {
                 //ドロップがはいっていない
                 if (haiti[i, j].transform.childCount <= 0)
@@ -136,11 +134,8 @@ public class seisei : MonoBehaviour {
                     {
                         //haiti[0,j]のとき新たに挿入
                         //オブジェクト生成
-                        obsei(i, j);
-                        
+                        obsei(i, j);                        
                     }
-
-
                 }
                 else
                 {
@@ -149,37 +144,27 @@ public class seisei : MonoBehaviour {
                     //ドロップが移動する作業
                     //childとparentのポジション比較
                     GameObject[,] ko;
-                    //生成した後一回だけ通る
-               
-                        ko = new GameObject[5, 6];
+                    //生成した後一回だけ通る              
+                        ko = new GameObject[haiti.GetLength(0), haiti.GetLength(1)];
                         foreach (Transform child in haiti[i, j].transform)
                         {
                             //child is your child transform
                             cn = child.name;
-
-
                         }
                         ko[i, j] = haiti[i, j].transform.FindChild(cn).gameObject;
-                        seiseisw = false;
-
-                    
-                   
+                        seiseisw = false;                                       
                     //haiti[i,j]に近づける
                     if (haiti[i, j].transform.position.y < ko[i,j].transform.position.y)
                     {
                         ko[i,j].transform.position = Vector3.Lerp(ko[i,j].transform.position, haiti[i, j].transform.position, 8f * Time.deltaTime);
-
                     }
                     else
                     {
                         ko[i,j].transform.position = haiti[i, j].transform.position;
                         //すべて移動しおわったら
                         combosw = true;
-                    }
-                
+                    }                
                 }
-
-
             }
         }
      
@@ -187,8 +172,7 @@ public class seisei : MonoBehaviour {
     //オブジェクトを生成
     void obsei(int i,int j)
     {
-
-        dransu = Random.Range(0, 6);
+        dransu = Random.Range(0, sp.Length);
         //どこか上のほうにとりあえずうむ
         kara = (GameObject)Instantiate(sp[dransu], seipos[j].transform.position, seipos[j].transform.rotation);
         kara.name = "drop" + suu;

@@ -5,7 +5,6 @@ public class enemys : MonoBehaviour {
     //敵の属性や攻撃力などを格納するクラス
     //倒すごとに変化
     //総合
-
     //属性　0:fire,1:reef,2:water,3:dark,4:lights
     public int zokusei;
     //ターンごとの属性
@@ -35,8 +34,7 @@ public class enemys : MonoBehaviour {
     //敵maxhp
     private float[] maxhp=new float[5]{
     2500,2700,2900,3000,5000
-    };
-  
+    }; 
     //hpのパーセンテージ
     private float parsen;
     //何回待つか
@@ -44,7 +42,6 @@ public class enemys : MonoBehaviour {
     private int[] maxwait=new int[5]{
     2,3,3,2,2
     };
-
     public Text tarnT;
     [SerializeField]
     GlobalSp Gl;
@@ -61,7 +58,6 @@ public class enemys : MonoBehaviour {
     private Color[] enecolor = new Color[3];
     //変える絵
     public Sprite[] pic = new Sprite[5];
-
     //変えるときのフェード
     private float nowTime;
     private float endTime;
@@ -72,8 +68,7 @@ public class enemys : MonoBehaviour {
     //nowbattleカウントアップ
     private bool nowbatc;
     //属性ごとの色
-    private Color[] zokusyoku = new Color[5];
-   
+    private Color[] zokusyoku = new Color[5];   
     //プレイヤーゲージ
     public Animator playani;
     //時間
@@ -82,8 +77,7 @@ public class enemys : MonoBehaviour {
     private float parsene;
     //プレイヤーへのダメージを表示するtext
     public Text playerdamageT;
-    public Animator damageani;
-    
+    public Animator damageani;   
 	// Use this for initialization
 	void Start () {
         zokusei = zokuseitarn[0];
@@ -134,8 +128,7 @@ public class enemys : MonoBehaviour {
                 tekitarn();
                 break;
             //敵の攻撃でplayerのゲージがゆれるシーン
-            case 12:
-          
+            case 12:         
                 if (playergagetime[0] <= playergagetime[1])
                 {
                     Ko.myhp = Ko.myhp - (int)parsene;
@@ -145,34 +138,11 @@ public class enemys : MonoBehaviour {
                 {
                     end();
                 }
-                ////myhpがなくなったらゲームオーバー
-                //if (Ko.myhp - kougekiy[Gl.nowbattle, kouran] <= 0)
-                //{
-
-                //    Ko.myhp = 0;
-                //    //ゲームオーバー
-                //    Gl.tarn = 4;
-
-                //}
-                //else
-                //{
-                //    //プレイヤーのhpを減らす
-
-                //    //ゲージがゆれる
-                //    Ko.myhp = Ko.myhp - kougekiy[Gl.nowbattle, kouran];
-
-
-                //    //動作を終える
-                //    Gl.tarn = 0;
-
-                //}
                 break;
             default:
                 playerdamageT.text = "";
                 break;
-        }
-        
-     
+        }             
 	}
     //どうさを終える処理
     void end()
@@ -180,22 +150,14 @@ public class enemys : MonoBehaviour {
         //myhpがなくなったらゲームオーバー
         if (Ko.myhp <= 0)
         {
-
             Ko.myhp = 0;
             //ゲームオーバー
             Gl.tarn = 4;
-
         }
         else
-        {
-            //プレイヤーのhpを減らす
-
-       
-
-
+        {                  
             //動作を終える
             Gl.tarn = 0;
-
         }
         //味方の声
         aud.SEo8();
@@ -207,8 +169,7 @@ public class enemys : MonoBehaviour {
     //敵のターンだたら
     void tekitarn()
     {
-        //敵のターンだったら
-  
+        //敵のターンだったら 
             wait--;
             //何回ごとか？
             if (wait <= 0)
@@ -223,23 +184,17 @@ public class enemys : MonoBehaviour {
             aud.SEkou(zokusei);
             aud.SEo2();
             aud.tekiO(zokusei,0);
-
             playani.SetBool("sw", true);
             damageani.SetBool("sw", true);
             playerdamageT.text = "-"+kougekiy[Gl.nowbattle, kouran]  ;
             //パーセンテージ計算
             parsene = kougekiy[Gl.nowbattle, kouran] / playergagetime[1];
-
             Gl.tarn = 12;
-
             }
             else
             {
                 Gl.tarn = 0;
-            }
-
-
-        
+            }        
     }
     //敵のｈｐがゼロ
     void tekihp0()
@@ -250,9 +205,7 @@ public class enemys : MonoBehaviour {
             //フェードで敵を消す
             nowTime -= Time.deltaTime;
             touka = nowTime / endTime;
-
             Cc = enemysp.color;
-
             Cc.a = touka;
             enemysp.color = Cc;
             for(int i = 0; i < eneIm.Length; i++)
@@ -281,12 +234,8 @@ public class enemys : MonoBehaviour {
                     numberT.text = (Gl.nowbattle + 1) + "/" + (Gl.battlesuu + 1);
                     //次の敵へ
                     StartCoroutine("feteki");
-                }
-          
-          
-            }
-           
-
+                }                    
+            }           
         }
     }
     //属性ごとの色の設定メソッド
@@ -304,14 +253,9 @@ public class enemys : MonoBehaviour {
         zokusyoku[4] = new Color(1,1,0.498f);
     }
     //次の敵へ
-    IEnumerator feteki() {
-       
- 
-   
-        yield return new WaitForSeconds(1);
-      
-        numberT.text = "";
-     
+    IEnumerator feteki() {           
+        yield return new WaitForSeconds(1);      
+        numberT.text = "";     
         nowTime = endTime;
         //敵のＨｐ切り替え
         tekihp = maxhp[Gl.nowbattle];

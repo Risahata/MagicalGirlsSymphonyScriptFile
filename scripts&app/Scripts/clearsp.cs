@@ -7,10 +7,8 @@ public class clearsp : MonoBehaviour {
     public GameObject clearC;
     [SerializeField]
     GlobalSp Gl;
-
     [SerializeField]
     audioSys aud;
-
     //一度だけ通る
     private bool itido;
 	// Use this for initialization
@@ -31,12 +29,9 @@ public class clearsp : MonoBehaviour {
                     aud.SEo7();
                     itido = true;
                 }
-
                 clearC.SetActive(true);
                 break;
         }
-
-
 	}
     //クリアキャンバスのOKボタン
     public void okb()
@@ -46,7 +41,6 @@ public class clearsp : MonoBehaviour {
         switch (menuG.stagen)
         {
             case 0:
-
                 menuG.clcon[0] = true;
                 break;
         }

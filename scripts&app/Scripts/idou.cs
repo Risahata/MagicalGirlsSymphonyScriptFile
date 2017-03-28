@@ -35,7 +35,6 @@ public class idou : MonoBehaviour {
     int hakosu;
     //最大コンボ数
     int combosu;
-
     public static int bsu = 0;
     //攻撃面のスクリプト
     [SerializeField]
@@ -54,7 +53,6 @@ public class idou : MonoBehaviour {
     private bool drsw;
     //生成するcomboオブジェクト
     public GameObject comboobj;
-
     public int botanstate;
     //デストロイしたところにパーティクルを生成
     public GameObject pat;
@@ -62,18 +60,16 @@ public class idou : MonoBehaviour {
     Vector3 syokipos;
     //スキル貯め
     [SerializeField]
-    skill sk;
-    //スムージングsw
-    private bool smsw;
+    skill sk; 
 	// Use this for initialization
 	void Start () {
         botanstate = 0;
         drsw = false;
         hakosu = 0;
         combosu=0;  
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < haiti.GetLength(0); i++)
         {
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < haiti.GetLength(1); j++)
             {
                 //オブジェクトを見つける
                 haiti[i, j] = GameObject.Find(obname[i, j]);
@@ -84,8 +80,7 @@ public class idou : MonoBehaviour {
             }
         }
         dcTime[0] = 0;
-        dcTime[1] = 0.5f;
-        smsw = false;
+        dcTime[1] = 0.5f;      
 	}	
 	// Update is called once per frame
 	void Update () {
@@ -98,13 +93,10 @@ public class idou : MonoBehaviour {
                     //処理行っている途中は押されないように
                     //waitじゃなかったら
                     if (Input.GetMouseButtonDown(0))
-                    {
-                    
+                    {                    
                         //コンボ数初期化
                         bsu = 0;
-                        LeftClick();
-                        //botanstate = 1;
-
+                        LeftClick();                     
                     }
                     break;
                 case 1:
@@ -114,12 +106,7 @@ public class idou : MonoBehaviour {
                     if (Input.GetMouseButton(0))
                     {
                         LeftDrag();
-                    }
-                    //スムーズな動き
-                    if (smsw == true)
-                    {
-                  
-                    }
+                    }                 
                     smuziong();
                     //判定
                     if (Input.GetMouseButtonUp(0))
@@ -140,8 +127,7 @@ public class idou : MonoBehaviour {
                             for (int i = 0; i < sk.nowskill.Length; i++)
                             {
                                 sk.nowskill[i]++;
-                            }
-                           
+                            }                           
                         }
                         else
                         {                          
@@ -157,32 +143,24 @@ public class idou : MonoBehaviour {
                     }
                
                     break;
-            }
-        
-         
+            }                 
         }
 	}
     //rayを飛ばす
     public static GameObject GetCurrentHitCollider()
     {
-
-        //メインカメラ上のマウスカーソルのある位置からRayを飛ばす
-       
+        //メインカメラ上のマウスカーソルのある位置からRayを飛ばす       
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             GameObject s = hit.collider.gameObject;
-
-
             return s;
         }
         else
         {
             return null;
         }
-
     }
     //押されたとき（タップしたとき）
     void LeftClick()
@@ -205,8 +183,7 @@ public class idou : MonoBehaviour {
     }
     //ドロップを動かす
     void LeftDrag()
-    {
-    
+    {    
         //オブジェクトがあったらなおかつ範囲内だったら
         if (poinm != null&&poinm.tag!="pat")
         {
@@ -241,9 +218,9 @@ public class idou : MonoBehaviour {
             float poinmYbegin = poinm.transform.position.y - 0.4f;
             float poinmYend = poinm.transform.position.y - 0.8f;
             //poinmと配置場所の場所比較
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < haiti.GetLength(0); i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < haiti.GetLength(1); j++)
                 {
                     //自分の初期ポジ以外で
                     if (haiti[i, j].transform.position!=oya.transform.position)
@@ -306,9 +283,7 @@ public class idou : MonoBehaviour {
                 break;
             default:
                 break;
-
-        }
-        
+        }        
         if (dcTime[0] > dcTime[1])
         {
             dcTime[0] = 0;
@@ -317,9 +292,9 @@ public class idou : MonoBehaviour {
     //  スムーズな動きのスクリプト
     void smuziong()
     {
-        for (int i = 0; i < 5;i++ )
+        for (int i = 0; i < haiti.GetLength(0);i++ )
         {
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < haiti.GetLength(1); j++)
             {
                 GameObject m;
                 string nn="";
@@ -364,10 +339,10 @@ public class idou : MonoBehaviour {
    {
         //hakosu
         int[] kanri = new int[30];
-        GameObject[,] haitiko = new GameObject[5, 6];
-       for (int i = 0; i < 5; i++)
+        GameObject[,] haitiko = new GameObject[haiti.GetLength(0), haiti.GetLength(1)];
+       for (int i = 0; i < haiti.GetLength(0); i++)
        {
-           for (int j = 0; j < 6; j++)
+           for (int j = 0; j < haiti.GetLength(1); j++)
            {
                foreach (Transform child in haiti[i, j].transform)
                {
@@ -395,7 +370,7 @@ public class idou : MonoBehaviour {
                     //縦探索
                     if (i == 0 || i == 1 || i == 2)
                     {
-                        while (sw == false && c < 5)
+                        while (sw == false && c < haiti.GetLength(0))
                         {
                             if (haitiko[i, j].tag == haitiko[c, j].tag)
                             {
@@ -429,9 +404,6 @@ public class idou : MonoBehaviour {
                     }
 
                 }
-
-
-
             }
             if (itido == true)
             {
@@ -443,10 +415,10 @@ public class idou : MonoBehaviour {
             }
         }
        //ただの横探索。
-       for (int i = 0; i < 5; i++)
+       for (int i = 0; i < haiti.GetLength(0); i++)
        {
            bool itido = false;
-           for (int j = 0; j < 6; j++)
+           for (int j = 0; j < haiti.GetLength(1); j++)
            {
                if (itido == false)
                {
@@ -461,7 +433,7 @@ public class idou : MonoBehaviour {
                         case 1:
                         case 2:
                         case 3:
-                            while (sw == false && c < 6)
+                            while (sw == false && c < haiti.GetLength(1))
                             {
                                 if (haitiko[i, j].tag == haitiko[i, c].tag)
                                 {
@@ -476,9 +448,7 @@ public class idou : MonoBehaviour {
                                             deshako[combosu, hakosu] = haitiko[i, j+1];
                                             hakosu++;
                                             //コンボが＋＋；
-
                                             //コンボが決まっているので列は探索しない
-
                                             itido = true;
                                         }
                                         deshako[combosu, hakosu] = haitiko[i, c];
@@ -527,8 +497,7 @@ public class idou : MonoBehaviour {
                         se[0]=(GameObject)Instantiate(comboobj, deshako[a, b + 1].transform.position, deshako[a, b + 1].transform.rotation);
                         //このゲームオブジェクトの中身を調べ、そこのテキストにbusを代入
                         se[1] = se[0].transform.FindChild("coT").gameObject;
-                        te = se[1].GetComponent<Text>();
-                      
+                        te = se[1].GetComponent<Text>();                     
                         te.text = (bsu+1)+"combo";
                         bsu++;
                         //消したよというのをお知らせ
@@ -552,11 +521,8 @@ public class idou : MonoBehaviour {
                     Destroy(deshako[a, b]);
                 }
             }
-
         }
         botanstate = 0;
-
-
     }    
      
 }

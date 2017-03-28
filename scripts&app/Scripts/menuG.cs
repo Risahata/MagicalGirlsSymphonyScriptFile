@@ -10,7 +10,6 @@ public class menuG : MonoBehaviour {
     [SerializeField]
     audioSys aud;
     //押されたらそれぞれのエリアへ
-
     //クリアしていたら表示
     public static bool[] clcon=new bool[1];
     //ステージナンバー
@@ -31,8 +30,7 @@ public class menuG : MonoBehaviour {
         nowTime = 0;
         endTime = 1;
         textc.text = "エリアを選択してください";
-	}
-	
+	}	
 	// Update is called once per frame
 	void Update () {
         if (tekihen == true)
@@ -54,8 +52,7 @@ public class menuG : MonoBehaviour {
         aud.SEo2();
         stagen = 0;
         //ローディング画面へ
-        Globalsp.gamestate=2;
-       
+        Globalsp.gamestate=2;       
     }
     //エリア２へ
     public void push1()

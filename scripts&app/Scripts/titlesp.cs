@@ -45,8 +45,7 @@ public class titlesp : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-     
+	void Update () {    
         if (fadsw == true)
         {
             fad();
@@ -67,7 +66,6 @@ public class titlesp : MonoBehaviour {
                 aud.SEo0();
                 //フェード開始
                 fadsw = true;
-
             }
         }
 	}
@@ -81,8 +79,7 @@ public class titlesp : MonoBehaviour {
             Cc[i] = tiIm[i].color;
             Cc[i].a = touka;
             tiIm[i].color = Cc[i];
-        }
-    
+        }    
         if (nowTime < 0)
         {
             fadsw = false;

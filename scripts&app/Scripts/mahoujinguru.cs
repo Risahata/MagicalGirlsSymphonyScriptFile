@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class mahoujinguru : MonoBehaviour {
     //魔法陣ぐるぐる
-    public GameObject[] jin = new GameObject[3];
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+    public GameObject[] jin = new GameObject[3];	
 	// Update is called once per frame
 	void Update () {
 		for(int i = 0; i < jin.Length; i++)

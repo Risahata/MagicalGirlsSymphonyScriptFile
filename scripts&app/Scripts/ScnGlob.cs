@@ -5,8 +5,7 @@ public class ScnGlob : MonoBehaviour {
     //スクリプトの存在有無
     //タイトル
     [SerializeField]
-    titlesp Tsp;
- 
+    titlesp Tsp; 
     //メニュー
     [SerializeField]
     menuG Mmg;
@@ -24,8 +23,7 @@ public class ScnGlob : MonoBehaviour {
         //ローディングキャンバス最初は見えない
         Loadob.SetActive(false);
         gamestate = 0;  
-	}
-	
+	}	
 	// Update is called once per frame
 	void Update () {
         if (tomain == true)
@@ -54,9 +52,7 @@ public class ScnGlob : MonoBehaviour {
                 //待つ
                 StartCoroutine("Loadwait");
                 break;
-        }
-   
-
+        }   
 	}
     //ローディングの待つ時間
     IEnumerator Loadwait()

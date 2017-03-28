@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class guruguru : MonoBehaviour {
     //メイン画面の魔法陣ぐるぐる
-    public GameObject mahou;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+    public GameObject mahou;	
 	// Update is called once per frame
 	void Update () {
         if (mahou != null)
